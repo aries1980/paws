@@ -1,0 +1,28 @@
+{
+    "name": "aries1980/paws",
+    "description": "Pet dating agency site - for personal learning purposes.",
+    "keywords": ["Dating", "Pet", "PHP", "Silex", "Symfony"],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.5.0",
+        "guzzle/guzzle": "3.3.*",
+        "silex/silex": "1.*",
+        "swiftmailer/swiftmailer": "5.*",
+        "deralex/yaml-config-service-provider": "1.0.*@dev",
+        "hautelook/phpass": "dev-master",
+        "twig/twig": ">=1.8,<2.0-dev",
+        "monolog/monolog": "dev-master"
+    },
+    "require-dev": {
+    },
+    "minimum-stability": "beta",
+    "config": {
+        "preferred-install": "dist"
+    },
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Paws\\": "app/src/"
+        }
+    }
+}
