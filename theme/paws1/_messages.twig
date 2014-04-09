@@ -1,36 +1,36 @@
 
 {% if app.session.flashBag.has('info') %}
-    <div class="alert alert-info">
-        <button class="close" data-dismiss="alert">×</button>
+    <div class="alert alert-info peterriver">
+        <div class="alert-close"><i class="icon-remove"></i></div>
         {% for msg in app.session.flashBag.get('info') %}
-            {{ msg }}
+            <p class="alert-message">{{ msg }}</p>
         {% endfor %}
     </div>
 {% endif %}
 
 {% if app.session.flashBag.has('error') %}
-    <div class="alert alert-error">
-        <button class="close" data-dismiss="alert">×</button>
+    <div class="alert alert-error alizarin">
+        <div class="alert-close"><i class="icon-remove"></i></div>
         {% for msg in app.session.flashBag.get('error') %}
-            {{ msg }}
+            <p class="alert-message">{{ msg }}</p>
         {% endfor %}
     </div>
 {% endif %}
 
 {% if app.session.flashBag.has('warning') %}
-    <div class="alert alert-warning">
-        <button class="close" data-dismiss="alert">×</button>
+    <div class="alert alert-warning alizarin">
+        <div class="alert-close"><i class="icon-remove"></i></div>
         {% for msg in app.session.flashBag.get('warning') %}
-            {{ msg }}
+            <p class="alert-message"></p>{{ msg }}
         {% endfor %}
     </div>
 {% endif %}
 
 {% if app.session.flashBag.has('success') %}
-    <div class="alert alert-success">
-        <button class="close" data-dismiss="alert">×</button>
+    <div class="alert alert-success turquoise">
+        <div class="alert-close"><i class="icon-remove"></i></div>
         {% for msg in app.session.flashBag.get('success') %}
-            {{ msg }}
+            <p class="alert-message">{{ msg }}</p>
         {% endfor %}
     </div>
 {% endif %}
