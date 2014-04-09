@@ -1,0 +1,91 @@
+{#
+  The header of the Paws theme.
+#}<!DOCTYPE html>
+<!--[if IE 7]><html lang="{{ app.config.locale }}" class="ie7"><![endif]-->
+<!--[if IE 8]><html lang="{{ app.config.locale }}" class="ie8"><![endif]-->
+<!--[if IE 9]><html lang="{{ app.config.locale }}" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><html lang="{{ app.config.locale }}"><![endif]-->
+<!--[if !IE]><html lang="{{ app.config.locale }}"><![endif]-->
+<head>
+    <title>
+    {% if record.title is defined %}{{ record.title|striptags }} | {% endif %}
+    {{ app.config.site_name }}
+    {% if record.title is not defined and app.config.slogan %} | {{ app.config.slogan }}{% endif %}
+    </title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <meta name="viewport" content=" width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Link to GoogleFonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin' rel='stylesheet' type='text/css'>
+    <!-- End Link to GoogleFonts -->
+
+    <!-- Glyphs Font : FontAwesome -->
+    <link rel="stylesheet" href="{{ path.theme }}/css/font-awesome.min.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="{{ path.theme }}/css/font-awesome-ie7.min.css">
+    <![endif]-->
+    <link href="{{ path.theme }}/css/reset-min.css" type="text/css" rel="stylesheet">
+    <link href="{{ path.theme }}/css/unsemantic-grid-responsive.css" type="text/css" rel="stylesheet">
+    <link href="{{ path.theme }}/css/components.css" type="text/css" rel="stylesheet">
+    <link href="{{ path.theme }}/css/style.css" type="text/css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ path.theme }}/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+    <!-- Placeholders JS for IE -->
+    <script src="{{ path.theme }}/js/jquery.placeholder.min.js"></script>
+    <!-- End Placeholders JS for IE -->
+
+    <!-- Swipe -->
+    <script src='{{ path.theme }}/js/swipe.js'></script>
+    <!-- End Swipe -->
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#menu-button').toggle(function() {
+                $('#menu').animate({
+                    marginTop: '+=10',
+                    height: '100%',
+                    opacity: 1
+                }, 300, function() {
+                    // Animation complete.
+                });
+            }, function() {
+                $('#menu').animate({
+                    marginTop: '-=10',
+                    opacity: 0,
+                    height: '0px'
+                }, 300, function() {
+                    // Animation complete.
+                });
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+<div id="top-wrapper" class="darkblue">
+    <div class="grid-container">
+        <header class="grid-20 mobile-grid-100">
+            <p id="logo">Paws</p>
+            <p id="menu-button" class="hide-on-desktop"><i class="icon-reorder"></i></p>
+        </header>
+
+        <nav class="grid-80 mobile-grid-100">
+            <ul id="menu">
+                <li><a href="{{ paths.root }}">Home</a></li>
+                {% if app.session.get('user') is not null %}
+                    <li><a href="{{ paths.root }}/logout">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ paths.root }}/login">Login</a></li>
+                    <li><a href="{{ paths.root }}/signup">Sign up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>

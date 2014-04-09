@@ -1,0 +1,665 @@
+/* Color Settings */
+.white {
+    background-color: white;
+}
+.darkblue {
+    background-color: rgb(41, 47, 51);
+}
+.turquoise {
+    background-color: rgb(26, 188, 156);
+}
+.greensea {
+    background-color: rgb(22, 160, 133);
+}
+.peterriver {
+    background-color: rgb(52, 152, 219);
+}
+.belizehole {
+    background-color: rgb(41, 128, 185);
+}
+.amethyst {
+    background-color: rgb(155, 89, 182);
+}
+.wisteria {
+    background-color: rgb(142, 68, 173);
+}
+.alizarin {
+    background-color: rgb(231, 76, 60);
+}
+.pomegranate {
+    background-color: rgb(192, 57, 43);
+}
+.sunflower {
+    background-color: rgb(241, 196, 15);
+}
+.orange {
+    background-color: rgb(243, 156, 18);
+}
+.wetasphault {
+    background-color: rgb(52, 73, 94);
+}
+.midnightblue {
+    background-color: rgb(44, 62, 80);
+}
+/* Social Colors */
+.facebook {
+    background-color: #3b5998;
+}
+.twitter {
+    background-color: #00a0d1;
+}
+.rss {
+    background-color: #fa9b39;
+}
+.youtube {
+    background-color: #c4302b;
+}
+.vimeogreen {
+    background-color: #aad450;
+}
+.vimeoblue {
+    background-color: #44bbff;
+}
+.pinterest {
+    background-color: #910101;
+}
+.tumblr {
+    background-color: #34526f;
+}
+.dribbble {
+    background-color: #ea4c89;
+}
+/* End Social Colors */
+/* End Color Settings */
+
+/* Arrows */
+.arrow-down-turquoise {
+    width: 0; 
+    height: 0; 
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    
+    border-top: 16px solid rgb(26, 188, 156);
+    
+    margin-left: auto;
+    margin-right: auto;
+}
+.arrow-down-white {
+    width: 0; 
+    height: 0; 
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    
+    border-top: 16px solid white;
+    
+    margin-left: auto;
+    margin-right: auto;
+}
+.arrow-up-white {
+    width: 0; 
+    height: 0; 
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    
+    border-bottom: 16px solid white;
+    
+    margin-left: auto;
+    margin-right: auto;
+    
+    margin-top: -16px;
+    
+    z-index: 120;
+    position: relative;
+}
+/* End Arrows */
+
+/* Images */
+.image-container {
+    overflow: hidden;
+    
+    position: relative;
+    
+    display: block;
+    
+    margin-bottom: 20px;
+}
+.image {
+    overflow: hidden;
+    
+    width: 100%;
+    display: block;
+    
+    position: relative;
+    top: 0px;
+    
+    -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+      
+      z-index: 10;
+}
+.overlay {
+    position: absolute;
+    display: block;
+    
+    overflow: hidden;
+    
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    
+    background-color: rgba(41, 47, 51, .45);
+    
+    opacity: 0;
+    z-index: 11;
+    
+    -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;    
+}
+.overlay:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+.overlay-icon {
+    width: 100%;
+    height: 100%;
+    
+    position: relative;
+    display: table;
+    
+    text-align: center;
+    
+    color: white;
+    
+    
+    line-height: 50%;
+}
+.overlay-icon i {
+    display: table-cell;
+    vertical-align: middle;
+}
+/* Images */
+
+/* Buttons */
+.button {
+    display: block;
+    width: 100%;
+    
+    padding-top: 8px;
+    padding-bottom: 8px;
+    
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    
+    margin-top: 20px;
+    
+    -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+}
+.button:hover {
+    cursor: pointer;
+}
+/* End Buttons */
+
+/* Forms */
+form {
+    display: block;
+    float: left;
+}
+input {
+    border: none;
+    -webkit-appearance: none;
+}
+input[type="text"], input[type="tel"], input[type="email"], input[type="url"], input[type="week"], input[type="time"], input[type="search"], input[type="password"] {
+    width: 100%;
+    border: 1px solid rgba(98, 107, 112, .15);
+    
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+    margin-top: 12px;
+    margin-bottom: 12px;
+    
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    
+    padding-left: 10px;
+    padding-right: 10px;
+    
+    color: rgb(98, 107, 112);
+}
+input[type="submit"] {
+    display: block;
+    width: 100%;
+    
+    padding-top: 8px;
+    padding-bottom: 8px;
+    
+    margin-top: 12px;
+    margin-bottom: 12px;
+    
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    
+    -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+}
+input[type="submit"]:hover {
+    cursor: pointer;
+    background-color: rgb(26, 188, 156);
+}
+/* End Forms */
+
+/* Alerts */
+.alert {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.alert-message {
+    padding: 24px;
+    color: white;
+}
+.alert-close {
+    float: right;
+    color: white;
+    margin-top: 0px;
+    margin-right: 5px;
+    
+    font-size: 16px;
+}
+.alert-close:hover {
+    cursor: pointer;
+}
+/* End Alerts */
+
+/* Tags */
+.tag {
+    display: block;
+    float: left;
+
+    padding-top: 1px;
+    padding-bottom: 1px;
+    
+    padding-left: 12px;
+    padding-right: 12px;
+    
+    border-radius: 10px;
+    
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-right: 8px;
+    
+    font-size: 12px;
+    font-weight: 600;
+    
+    -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+    
+}
+
+.tag-sunflower {
+    background-color: rgba(241, 196, 15, .2);
+    border: 1px solid rgba(241, 196, 15, .3);
+    color: rgb(241, 196, 15);
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255, .5);
+}
+.tag-sunflower:hover {
+    background-color: rgb(241, 196, 15);
+    border: 1px solid rgb(241, 196, 15);
+    
+    color: white;
+    text-shadow: none;
+}
+.tag-orange {
+    background-color: rgba(243, 156, 18, .2);
+    border: 1px solid rgba(243, 156, 18, .3);
+    color: rgb(243, 156, 18);
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255, .5);
+}
+.tag-orange:hover {
+    background-color: rgb(243, 156, 18);
+    border: 1px solid rgb(243, 156, 18);
+    
+    color: white;
+    text-shadow: none;
+}
+.tag-alizarin {
+    background-color: rgba(231, 76, 60, .2);
+    border: 1px solid rgba(231, 76, 60, .3);
+    color: rgb(231, 76, 60);
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255, .5);
+}
+.tag-alizarin:hover {
+    background-color: rgb(231, 76, 60);
+    border: 1px solid rgb(231, 76, 60);
+    
+    color: white;
+    text-shadow: none;
+}
+.tag-pomegranate {
+    background-color: rgba(192, 57, 43, .2);
+    border: 1px solid rgba(192, 57, 43, .3);
+    color: rgb(192, 57, 43);
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255, .5);
+}
+.tag-pomegranate:hover {
+    background-color: rgb(192, 57, 43);
+    border: 1px solid rgb(192, 57, 43);
+    
+    color: white;
+    text-shadow: none;
+}
+.tag-amethyst {
+    background-color: rgba(155, 89, 182, .2);
+    border: 1px solid rgba(155, 89, 182, .3);
+    color: rgb(155, 89, 182);
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255, .5);
+}
+.tag-amethyst:hover {
+    background-color: rgb(155, 89, 182);
+    border: 1px solid rgb(155, 89, 182);
+    
+    color: white;
+    text-shadow: none;
+}
+.tag-wisteria {
+    background-color: rgba(142, 68, 173, .2);
+    border: 1px solid rgba(142, 68, 173, .3);
+    color: rgb(142, 68, 173);
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255, .5);
+}
+.tag-wisteria:hover {
+    background-color: rgb(142, 68, 173);
+    border: 1px solid rgb(142, 68, 173);
+    
+    color: white;
+    text-shadow: none;
+}
+.tag-turquoise {
+    background-color: rgba(26, 188, 156, .2);
+    border: 1px solid rgba(26, 188, 156, .3);
+    color: rgb(26, 188, 156);
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255, .5);
+}
+.tag-turquoise:hover {
+    background-color: rgb(26, 188, 156);
+    border: 1px solid rgb(26, 188, 156);
+    
+    color: white;
+    text-shadow: none;
+}
+.tag-greensea {
+    background-color: rgba(22, 160, 133, .2);
+    border: 1px solid rgba(22, 160, 133, .3);
+    color: rgb(22, 160, 133);
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255, .5);
+}
+.tag-greensea:hover {
+    background-color: rgb(22, 160, 133);
+    border: 1px solid rgb(22, 160, 133);
+    
+    color: white;
+    text-shadow: none;
+}
+.tag-peterriver {
+    background-color: rgba(52, 152, 219, .2);
+    border: 1px solid rgba(52, 152, 219, .3);
+    color: rgb(52, 152, 219);
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255, .5);
+}
+.tag-peterriver:hover {
+    background-color: rgb(52, 152, 219);
+    border: 1px solid rgb(52, 152, 219);
+    
+    color: white;
+    text-shadow: none;
+}
+.tag-belizehole {
+    background-color: rgba(41, 128, 185, .2);
+    border: 1px solid rgba(41, 128, 185, .3);
+    color: rgb(41, 128, 185);
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255, .5);
+}
+.tag-belizehole:hover {
+    background-color: rgb(41, 128, 185);
+    border: 1px solid rgb(41, 128, 185);
+    
+    color: white;
+    text-shadow: none;
+}
+.tag-wetasphault {
+    background-color: rgba(52, 73, 94, .2);
+    border: 1px solid rgba(52, 73, 94, .3);
+    color: rgb(52, 73, 94);
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255, .5);
+}
+.tag-wetasphault:hover {
+    background-color: rgb(52, 73, 94);
+    border: 1px solid rgb(52, 73, 94);
+    
+    color: white;
+    text-shadow: none;
+}
+.tag-midnightblue {
+    background-color: rgba(44, 62, 80, .2);
+    border: 1px solid rgba(44, 62, 80, .3);
+    color: rgb(44, 62, 80);
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255, .5);
+}
+.tag-midnightblue:hover {
+    background-color: rgb(44, 62, 80);
+    border: 1px solid rgb(44, 62, 80);
+    
+    color: white;
+    text-shadow: none;
+}
+.tag-darkblue {
+    background-color: rgba(41, 47, 51, .2);
+    border: 1px solid rgba(41, 47, 51, .3);
+    color: rgb(41, 47, 51);
+    
+    text-shadow: 0px 1px 0px rgba(255,255,255, .5);
+}
+.tag-darkblue:hover {
+    background-color: rgb(41, 47, 51);
+    border: 1px solid rgb(41, 47, 51);
+    
+    color: white;
+    text-shadow: none;
+}
+/* End Tags */
+
+/* Progress Bars */
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+    border: 1px solid rgba(98, 107, 112, .18);
+    
+    box-shadow: inset 0px 1px 2px rgba(0,0,0, .05), 0px 1px 0px rgba(255,255,255, .3);
+    
+    border-radius: 10px;
+    
+    overflow: hidden;
+}
+.progress {
+    height: inherit;
+    width: 45%;
+    
+    box-shadow: inset 0px 1px 2px rgba(0,0,0, .05);
+    
+    border-radius: 10px;
+}
+/* End Progress Bars */
+
+/* Charts */
+canvas{
+    width: 100% !important;
+       max-width: 584px;
+    height: auto !important;
+}
+/* End Charts */
+
+.color-text {
+    width: 100%;
+    
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+    margin-top: 12px;
+    margin-bottom: 12px;
+    
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    
+    padding-left: 10px;
+    
+    color: white;
+}
+
+/* Typography */
+.text {
+    color: rgb(98, 107, 112);
+    text-align: left;
+    
+    font-weight: 400;
+    line-height: 200%;
+    
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+.text a {
+    text-decoration: none;
+    
+    color: rgb(26, 188, 156);
+    
+    font-weight: 600;
+    
+    -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+}
+.text a:hover {
+    color: inherit;
+    cursor: pointer;
+}
+h1 {
+    width: 100%;
+    font-size: 28px;
+    font-weight: 600;
+    color: rgb(80, 87, 91);
+    
+    padding-top: 28px;
+    padding-bottom: 28px;
+}
+h2 {
+    width: 100%;
+    font-size: 24px;
+    font-weight: 600;
+    color: rgb(80, 87, 91);
+    
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+h3 {
+    width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(80, 87, 91);
+    
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+h4 {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(80, 87, 91);
+    
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+ul li {
+    width: 100%;
+    color: rgb(98, 107, 112);
+    line-height: 200%;
+    
+    list-style-type: circle;
+}
+ol li {
+    width: 100%;
+    color: rgb(98, 107, 112);
+    line-height: 200%;
+    
+    list-style-type:decimal;
+}
+em {
+    font-style: italic;
+}
+b {
+    font-weight: 600;
+}
+strong {
+    font-weight: 700;
+}
+del {
+    text-decoration: line-through;
+}
+pre {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+    padding: 20px;
+    
+    border: 1px solid rgba(98, 107, 112, .1);
+    background-color: rgba(98, 107, 112, .04);
+    
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    
+    font-size: 12px;
+    line-height: 200%;
+}
+/* End Typography */

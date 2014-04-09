@@ -1,0 +1,22 @@
+<footer>
+</footer>
+
+<script>
+    // pure JS
+    var elem = document.getElementById('mySwipe');
+    window.mySwipe = Swipe(elem, {
+        // startSlide: 0,
+        speed: 600,
+        auto: 4500,
+        continuous: true,
+        disableScroll: false,
+        // stopPropagation: true,
+        // callback: function(index, element) {},
+        // transitionEnd: function(index, element) {}
+    });
+
+    // with jQuery
+    // window.mySwipe = $('#mySwipe').Swipe().data('Swipe');
+</script>
+</body>
+</html>
