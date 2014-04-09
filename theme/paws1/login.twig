@@ -11,11 +11,11 @@
             {% include '_messages.twig' %}
 
             <div class="grid-100">
-                <form method="post" action="">
+                <form method="post">
                     <input type="text" name="username" id="username" placeholder="Username" {% if username is defined %}value="{{username}}"{%endif%} />
                     <input type="password" name="password" value="" id="password" placeholder="Password" />
                     <div class="grid-30 grid-parent">
-                        <input type="submit" name="" value="Submit" class="greensea"/>
+                        <button type="submit" name="action" value="login" class="greensea">Log in</button>
                     </div>
                 </form>
             </div>

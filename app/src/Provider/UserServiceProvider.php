@@ -16,13 +16,14 @@ class UserServiceProvider implements ServiceProviderInterface
             return $role;
         });
 
-        $app['user'] = $app->share(function ($app) {
-            $user = new User($app);
-            return $user;
-        });
+        $app['user.class'] = $app['config']['user']['class'];
+        $app['user.factory'] = function () use ($app) {
+            return new $app['user.class']($app);
+        };
     }
 
     public function boot(Application $app)
     {
+        $app['user'] = $app['user.factory'];
     }
 }
