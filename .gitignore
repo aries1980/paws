@@ -22,7 +22,7 @@ php-cs-fixer.phar
 .swp
 *.lock
 .gitignore
-
+paws.log
 composer.lock
 tests/_log
 .buildpath
