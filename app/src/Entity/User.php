@@ -85,17 +85,17 @@ class User implements CrudInterface
      */
     protected $hashedPassword;
 
-    public function __construct(Application $app, $email, $username, $password, array $roles, $enabled = self::STATUS_ENABLED)
+    public function __construct(Application $app, $username = '', array $roles = array(), $password = '', $email = '', $enabled = self::STATUS_ENABLED)
     {
-        if (empty($username)) {
-            throw new \InvalidArgumentException('The username cannot be empty.');
-        }
-
         $this->app = $app;
 
         $this->setHashStrength($this->app['config']['hash_strength']);
         $this->setUserName($username);
-        $this->setEmail($email);
+
+        if (!empty($email)) {
+            $this->setEmail($email);
+        }
+
         $this->setPassword($password);
         $this->setEnabled($enabled);
         $this->setRoles($roles);
@@ -254,7 +254,7 @@ class User implements CrudInterface
     }
 
     /**
-     * Secure hashing
+     * Secure hashing.
      *
      * @param string $string
      * @return string
@@ -290,14 +290,20 @@ class User implements CrudInterface
      */
     public function retrieve()
     {
-        $stmt = $this->app['db']->prepare("SELECT * FROM user WHERE id = :id");
-        $stmt->execute([ ':id' => $this->getId() ]);
+        if ($this->getId()) {
+            $stmt = $this->app['db']->prepare("SELECT * FROM user WHERE id = :id");
+            $stmt->execute([ ':id' => $this->getId() ]);
+        } else {
+            $stmt = $this->app['db']->prepare("SELECT * FROM user WHERE username = :username");
+            $stmt->execute([ ':username' => $this->getUserName() ]);
+        }
 
-        if (!$user = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        if (!$user = $stmt->fetch(\PDO::FETCH_ASSOC)) {
             throw new \UnexpectedValueException('There is no such user.');
         }
 
-        $this->setEmail($user['email'])
+        $this->setId($user['id'])
+             ->setEmail($user['email'])
              ->setUserName($user['username'])
              ->setHashedPassword($user['password']);
 
@@ -460,5 +466,50 @@ class User implements CrudInterface
     public function isValidEmail($email)
     {
         return (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+
+    /**
+     * Checks the match of username and password.
+     *
+     * @return bool
+     */
+    public function checkCredentials() {
+        // @TODO remove this wired-in hasher.
+        $hasher = new PasswordHash($this->hashStrength, true);
+        return $hasher->CheckPassword($this->getPassword(), $this->getHashedPassword());
+    }
+
+    /**
+     * Authenticates the user.
+     *
+     * @TODO: refactor this to provide other auth providers such as OAuth2, LDAP, etc.
+     */
+    public function authenticate()
+    {
+        try {
+            $this->retrieve();
+        } catch (\UnexpectedValueException $e) {
+            $this->app['session']->getFlashBag()->set('error', 'Incorrect username or password.');
+            return false;
+        } catch (\Exception $e) {
+             $this->app['session']->getFlashBag()->set('error', 'Unknown error happened. Please try again later.');
+             return false;
+        }
+
+        if (!$this->checkCredentials()) {
+            // @TODO: provide hooks for throttling.
+            $this->app['session']->getFlashBag()->set('error', 'Incorrect username or password.');
+            return false;
+        }
+
+        if (!$this->getEnabled()) {
+            $this->app['session']->getFlashBag()->set('error', 'Your account is blocked. Please contact the site administartor.');
+        }
+
+        // We wish to create a new session-id for extended security, but due to a bug in PHP < 5.4.11, this
+        // will throw warnings. Suppress them here. #shakemyhead
+        // @see: https://bugs.php.net/bug.php?id=63379
+        @$this->app['session']->migrate(true);
+        $this->app['session']->set('user', $this);
     }
 }

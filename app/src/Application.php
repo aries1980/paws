@@ -14,6 +14,7 @@ use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Paws\Provider\UserServiceProvider;
 use DerAlex\Silex\YamlConfigServiceProvider;
 
 /**
@@ -52,6 +53,7 @@ class Application extends Silex\Application {
         $this->initSession($this['config']['session'])
              ->initLogger($this['config']['logger'])
              ->initDatabase($this['config']['database'])
+             ->initUserService()
              ->initRendering()
              ->initRouteHandlers();
     }
@@ -100,6 +102,19 @@ class Application extends Silex\Application {
     public function initLogger($config)
     {
         $this->register(new MonologServiceProvider(), $config);
+
+        return $this;
+    }
+
+    /**
+     * Initializes User service provider.
+     *
+     * @return self
+     *   Fluent interface.
+     */
+    public function initUserService()
+    {
+        $this->register(new UserServiceProvider());
 
         return $this;
     }

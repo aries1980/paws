@@ -6,9 +6,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Silex\ControllerProviderInterface;
 use Paws\Application;
 
+/**
+ * Provides URL route controller
+ *
+ * @package Paws
+ */
 class Routing implements ControllerProviderInterface
 {
 
+    /**
+     * {inheritdoc}
+     */
     public function connect(\Silex\Application $app)
     {
         $ctl = $app['controllers_factory'];
@@ -27,6 +35,12 @@ class Routing implements ControllerProviderInterface
             ->before([$this, 'before'])
             ->bind('postLogin');
 
+        $ctl->match("/users/{id}/edit", array($this, 'useredit'))
+            ->before(array($this, 'before'))
+            ->assert('id', '\d*')
+            ->method('GET|POST')
+            ->bind('useredit');
+
         return $ctl;
     }
 
@@ -43,18 +57,27 @@ class Routing implements ControllerProviderInterface
 
     public function postLogin(Application $app, Request $request)
     {
+        $user = $app['session']->get('user');
+
+        if (($user instanceof $app['config']['user']['class']) && !empty($user->getId())) {
+            return $app->abort(400, 'Invalid request - the user is already logged in.');
+        }
+
         switch ($request->get('action')) {
             case 'login':
-                $user = $app['user.factory'];
-                $result = $app['user']->login($request->get('username'), $request->get('password'));
+                $app['user']->setUserName($request->get('username'));
+                $app['user']->setPassword($request->get('password'));
+                $app['user']->authenticate();
 
-                if ($result) {
-                    $app['log']->add("Login " . $request->get('username'), 3, '', 'login');
-                    $retreat = $app['session']->get('retreat');
-                    $redirect = !empty($retreat) && is_array($retreat) ? $retreat : array('route' => 'dashboard', 'params' => array());
-                    return redirect($redirect['route'], $redirect['params']);
+                if ($app['user']->getId()) {
+                    $app['session']->getFlashBag()->set('success', 'Whatever.');
+                } else {
+                    // Authentication failed. Redirect to the login page.
+                    return $this->getLogin($app, $request);
                 }
-                return $this->getLogin($app, $request);
+
+                $app['logger']->info('User {username} logged in.', ['username' => $user->getUserName()]);
+                return $app->redirect(path('/user/' . $app['user']->getId()));
 
             default:
                 // Let's not disclose any internal information.
