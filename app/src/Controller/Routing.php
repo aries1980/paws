@@ -1,18 +1,18 @@
 <?php
 
 namespace Paws\Controller;
-use Silex;
-use Silex\ControllerProviderInterface;
 
+use Silex\ControllerProviderInterface;
+use Paws\Application;
 
 class Routing implements ControllerProviderInterface
 {
 
-    public function connect(Silex\Application $app)
+    public function connect(\Silex\Application $app)
     {
         $ctl = $app['controllers_factory'];
 
-        $ctl->get('', [$this, 'dashboard'])
+        $ctl->get('', [$this, 'home'])
             ->before([$this, 'before'])
             ->bind('home');
 
@@ -29,8 +29,20 @@ class Routing implements ControllerProviderInterface
         return $ctl;
     }
 
-    protected function home(\Paws\Application $app) {
-        $template = 'index.twig';
-        return $app['render']->render($template);
+    public function home(Application $app)
+    {
+        return $app['render']->render('index.twig');
+    }
+
+    public function getLogin(Application $app)
+    {
+        $app['render']->addGlobal('title', 'Login');
+        return $app['render']->render('login.twig');
+    }
+
+
+    public function before()
+    {
+
     }
 }
