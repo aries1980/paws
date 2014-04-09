@@ -4,7 +4,7 @@
  * Contains Paws\Permission
  */
 
-namespace Paws;
+namespace Paws\Entity;
 
 use Silex;
 

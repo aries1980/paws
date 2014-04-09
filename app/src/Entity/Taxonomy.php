@@ -6,7 +6,7 @@
  * Time: 0:32
  */
 
-namespace Paws;
+namespace Paws\Entity;
 
 
 class Taxonomy {

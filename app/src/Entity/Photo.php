@@ -6,9 +6,10 @@
  * Time: 0:31
  */
 
-namespace Paws;
+namespace Paws\Entity;
 
 
-class Photo {
+class Photo
+{
 
 } 
