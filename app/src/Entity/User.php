@@ -560,7 +560,7 @@ class User implements CrudInterface
             return false;
         }
 
-        if ($this->currentuser['enabled'] < 1) {
+        if ($currentuser->getEnabled() < 1) {
             // User has been disabled or deleted since logging in.
             $this->logout();
             return false;
