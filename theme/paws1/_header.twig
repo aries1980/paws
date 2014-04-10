@@ -8,9 +8,9 @@
 <!--[if !IE]><html lang="{{ app.config.locale }}"><![endif]-->
 <head>
     <title>
-    {% if record.title is defined %}{{ record.title|striptags }} | {% endif %}
+    {% if title is defined %}{{ title|striptags }} | {% endif %}
     {{ app.config.site_name }}
-    {% if record.title is not defined and app.config.slogan %} | {{ app.config.slogan }}{% endif %}
+    {% if title is not defined and app.config.slogan %} | {{ app.config.slogan }}{% endif %}
     </title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <link rel="profile" href="http://gmpg.org/xfn/11">
