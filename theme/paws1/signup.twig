@@ -1,0 +1,32 @@
+{% include '_header.twig' %}
+
+<div class="colored-stripe white">
+    <div class="grid-container paragraphs-container">
+        <div class="grid-30">
+            <p class="paragraph-icon"><i class="icon-book"></i></p>
+            <h3 class="paragraph-title">Sign up</h3>
+            <p class="paragraph-text">Please enter your details.</p>
+        </div>
+        <div class="grid-65 push-5">
+            {% include '_messages.twig' %}
+
+            <div class="grid-100">
+                <form method="post">
+                    <input type="text" name="username" id="username" placeholder="Username" {% if username is defined %}value="{{username}}"{%endif%} />
+                    <input type="password" name="password" value="" id="password" placeholder="Password" />
+                    <input type="password" name="password2" value="" id="password2" placeholder="Same password again" />
+                    <input type="text" name="name" value="" id="name" placeholder="Name" />
+                    <input type="text" name="surname" value="" id="surname" placeholder="Surname" />
+                    <input type="tel" name="telephone" value="" id="telephone" placeholder="Telephone" />
+                    <input type="email" name="email" value="" id="email" placeholder="Email" />
+                    <input type="url" name="url" value="" id="url" placeholder="URL" />
+                    <div class="grid-30 grid-parent">
+                        <button type="submit" name="action" value="login" class="greensea">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include '_footer.twig' %}
