@@ -2,6 +2,7 @@
 
 namespace Paws\Controller;
 
+use Paws\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Silex\ControllerProviderInterface;
 use Paws\Application;
@@ -34,6 +35,16 @@ class Routing implements ControllerProviderInterface
             ->method('POST')
             ->before([$this, 'before'])
             ->bind('postLogin');
+
+        $ctl->match('/signup', [$this, 'getSignup'])
+            ->method('GET')
+            ->before([$this, 'before'])
+            ->bind('signup');
+
+        $ctl->match('/signup', [$this, 'postSignup'])
+            ->method('POST')
+            ->before([$this, 'before'])
+            ->bind('postSignup');
 
         $ctl->match("/logout", array($this, 'logout'))
             ->method('GET')
@@ -127,17 +138,108 @@ class Routing implements ControllerProviderInterface
         }
     }
 
+    /**
+     * HTTP GET handler for profile page of a given user.
+     */
     public function userView(Application $app, Request $request)
     {
         $user = $app['user.factory'];
         $user->setId($request->get('id'))->retrieve();
 
         $app['render']->addGlobal('title', 'User profile of ' . $user->getUserName());
-        return $app['render']->render('login.twig');
+        $app['render']->addGlobal('id', $user->getId());
+        $app['render']->addGlobal('username', $user->getUserName());
+        $app['render']->addGlobal('email', $user->getEmail());
+
+        return $app['render']->render('user_profile.twig');
     }
 
+    /**
+     * HTTP POST handler for user details change.
+     */
     public function userEdit(Application $app, Request $request)
     {
 
+    }
+
+    /**
+     * HTTP GET handler for the Sign Up page.
+     */
+    public function getSignup(Application $app)
+    {
+        $app['render']->addGlobal('title', 'Sign up');
+        return $app['render']->render('signup.twig');
+    }
+
+    /**
+     * HTTP POST handler for the Sign Up page.
+     *
+     * @TODO: password match check on the client side (javascript) too.
+     * @TODO: AJAX check for username on the client side.
+     * @TODO: Input sanitization.
+     */
+    public function postSignup(Application $app, Request $request)
+    {
+        $userAlreadyExists = true;
+
+        if ($request->get('password') !== $request->get('password2')) {
+            $app['session']->getFlashBag()->set('error', 'The two password does not match.');
+            return $app->redirect('/signup');
+        }
+
+        $user = $app['user.factory'];
+        try {
+            $user->setUserName($request->get('username'))->retrieve();
+        } catch (\UnexpectedValueException $e) {
+            $userAlreadyExists = false;
+        }
+
+        if ($userAlreadyExists) {
+            $app['session']->getFlashBag()->set('error', 'The username already exists.');
+            return $app->redirect('/signup');
+        }
+
+        $email = $request->get('email');
+
+        try {
+            $user->setEmail($email);
+        } catch (\InvalidArgumentException $e) {
+            $app['session']->getFlashBag()
+                           ->set('error', 'The entered e-mail address seems invalid. Please pick an other one.');
+            return $app->redirect('/signup');
+        }
+
+        $this->userSave($request, $app['user.factory']);
+
+        if (!empty($user->getId())) {
+            $app['session']->getFlashBag()
+                ->set('success', 'Thank you for your sign up. Now please create your pets profile.');
+            return $app->redirect('/user' . $user->getId());
+        }
+
+        $app['session']->getFlashBag()->set('error', 'The user could not be saved. Please try again later.');
+        return $app->redirect('/signup');
+    }
+
+    /**
+     * Wrapper for $app['user']->save()
+     *
+     * @param Request $request
+     *   The HTTP POST request of the signup.
+     * @param User $user
+     *   The user entity to save.
+     *
+     * @return User
+     *   The saved user with id.
+     */
+    protected function userSave(Request $request, User $user)
+    {
+        $user->setEmail($request->get('email'));
+        $user->setUsername($request->get('username'));
+        $user->setPassword($request->get('password'));
+        $user->setEnabled(User::STATUS_ENABLED);
+        $user->save();
+
+        return $user;
     }
 }
