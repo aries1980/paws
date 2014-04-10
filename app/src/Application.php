@@ -40,8 +40,8 @@ class Application extends Silex\Application {
      */
     private function initConfig()
     {
-        $this->register(new YamlConfigServiceProvider(PAWS_CONFIG_DIR . '/common.yml'))
-             ->register(new YamlConfigServiceProvider(PAWS_CONFIG_DIR . '/routing.yml'));
+        $this->register(new YamlConfigServiceProvider(PAWS_CONFIG_DIR . '/common.yml'));
+//             ->register(new YamlConfigServiceProvider(PAWS_CONFIG_DIR . '/routing.yml'));
 //             ->register(new YamlConfigServiceProvider(PAWS_CONFIG_DIR . '/menu.yml'));
     }
 
