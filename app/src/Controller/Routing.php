@@ -35,11 +35,21 @@ class Routing implements ControllerProviderInterface
             ->before([$this, 'before'])
             ->bind('postLogin');
 
-        $ctl->match("/users/{id}/edit", array($this, 'useredit'))
+        $ctl->match("/logout", array($this, 'logout'))
+            ->method('GET')
+            ->bind('logout');
+
+        $ctl->match("/user/{id}", array($this, 'userView'))
+            ->before(array($this, 'before'))
+            ->assert('id', '\d*')
+            ->method('GET')
+            ->bind('userView');
+
+        $ctl->match("/user/{id}/edit", array($this, 'userEdit'))
             ->before(array($this, 'before'))
             ->assert('id', '\d*')
             ->method('GET|POST')
-            ->bind('useredit');
+            ->bind('userEdit');
 
         return $ctl;
     }
@@ -49,6 +59,9 @@ class Routing implements ControllerProviderInterface
         return $app['render']->render('index.twig');
     }
 
+    /**
+     * HTTP GET handler for the Login page.
+     */
     public function getLogin(Application $app)
     {
         $app['render']->addGlobal('title', 'Login');
@@ -76,8 +89,8 @@ class Routing implements ControllerProviderInterface
                     return $this->getLogin($app, $request);
                 }
 
-                $app['logger']->info('User {username} logged in.', ['username' => $user->getUserName()]);
-                return $app->redirect(path('/user/' . $app['user']->getId()));
+                $app['logger']->info('User {username} logged in.', ['username' => $app['user']->getUserName()]);
+                return $app->redirect('/user/' . $app['user']->getId());
 
             default:
                 // Let's not disclose any internal information.
@@ -85,8 +98,45 @@ class Routing implements ControllerProviderInterface
         }
     }
 
+    /**
+     * HTTP GET handler for the Logout page.
+     */
+    public function logout(Application $app)
+    {
+        $app['logger']->info('User {username} logged out.', ['{username}' => $app['user']->getUserName()]);
+        $app['user']->logout();
+        return $app->redirect('/login');
+    }
 
-    public function before()
+    public function before(Request $request, Application $app)
+    {
+        $route = $request->get('_route');
+
+        // Check if there's at least one 'root' user, and otherwise promote the current user.
+        //$app['user']->checkForRoot();
+        //$app['user']->isValidSession();
+        // Most of the 'check if user is allowed' happens here: match the current route to the 'allowed' settings.
+        if (!$app['user']->isValidSession() && !$app['user']->isAllowed($route)) {
+            $app['session']->getFlashBag()->set('info', 'Please log in.');
+
+            return $app->redirect('/login');
+        } elseif (!$app['user']->isAllowed($route)) {
+            $app['session']->getFlashBag()->set('error', 'You do not have the right privileges to view that page.');
+
+            return $app->redirect('/');
+        }
+    }
+
+    public function userView(Application $app, Request $request)
+    {
+        $user = $app['user.factory'];
+        $user->setId($request->get('id'))->retrieve();
+
+        $app['render']->addGlobal('title', 'User profile of ' . $user->getUserName());
+        return $app['render']->render('login.twig');
+    }
+
+    public function userEdit(Application $app, Request $request)
     {
 
     }

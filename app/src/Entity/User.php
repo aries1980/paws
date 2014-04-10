@@ -512,4 +512,63 @@ class User implements CrudInterface
         @$this->app['session']->migrate(true);
         $this->app['session']->set('user', $this);
     }
+
+    /**
+     * Log out the currently logged in user.
+     *
+     * @TODO: this should be in an authentication plugin.
+     */
+    public function logout()
+    {
+        $this->app['session']->getFlashBag()->set('info', 'You have been logged out.');
+        $this->app['session']->remove('user');
+        @$this->app['session']->migrate(true);
+
+        // Remove the cookie..
+        setcookie(
+            $this->app['config']['session']['name'],
+            '',
+            time() -1,
+            '/',
+            $this->app['config']['session']['domain'],
+            $this->app['config']['session']['https_only'],
+            true
+        );
+    }
+
+    /**
+     * Checks if the user is not disabled meantime.
+     */
+    public function isValidSession()
+    {
+        $currentuser = $this->app['session']->get('user');
+        if (!$currentuser) {
+            return false;
+        }
+
+        // Load the user's record from the database.
+        $this->retrieve();
+        if (empty($this->getId())) {
+            $this->logout();
+            return false;
+        }
+
+        if ($this->currentuser['enabled'] < 1) {
+            // User has been disabled or deleted since logging in.
+            $this->logout();
+            return false;
+        }
+    }
+
+    /**
+     * Checks whether a user is allowed to do a given action.
+     *
+     * @TODO: move this to the Permission service provider.
+     * @TODO: this is a stub.
+     */
+    public function isAllowed($action)
+    {
+        return true;
+    }
+
 }
