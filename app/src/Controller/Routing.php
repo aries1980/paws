@@ -209,12 +209,12 @@ class Routing implements ControllerProviderInterface
             return $app->redirect('/signup');
         }
 
-        $this->userSave($request, $app['user.factory']);
+        $user = $this->userSave($request, $app['user.factory']);
 
         if (!empty($user->getId())) {
             $app['session']->getFlashBag()
                 ->set('success', 'Thank you for your sign up. Now please create your pets profile.');
-            return $app->redirect('/user' . $user->getId());
+            return $app->redirect('/user/' . $user->getId());
         }
 
         $app['session']->getFlashBag()->set('error', 'The user could not be saved. Please try again later.');
