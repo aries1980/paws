@@ -4,7 +4,7 @@
     "keywords": ["Dating", "Pet", "PHP", "Silex", "Symfony"],
     "license": "MIT",
     "require": {
-        "php": ">=5.5.0",
+        "php": ">=5.4.4",
         "guzzle/guzzle": "3.3.*",
         "silex/silex": "1.*",
         "swiftmailer/swiftmailer": "5.*",

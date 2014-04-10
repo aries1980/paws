@@ -83,8 +83,11 @@ class Routing implements ControllerProviderInterface
     {
         $user = $app['session']->get('user');
 
-        if (($user instanceof $app['config']['user']['class']) && !empty($user->getId())) {
-            return $app->abort(400, 'Invalid request - the user is already logged in.');
+        if ($user instanceof $app['config']['user']['class']) {
+            $id = $user->getId();
+            if (!empty($id)) {
+                 return $app->abort(400, 'Invalid request - the user is already logged in.');
+            }
         }
 
         switch ($request->get('action')) {
@@ -101,7 +104,7 @@ class Routing implements ControllerProviderInterface
                 }
 
                 $app['logger']->info('User {username} logged in.', ['username' => $app['user']->getUserName()]);
-                return $app->redirect('user/' . $app['user']->getId());
+                return $app->redirect('/user/' . $app['user']->getId());
 
             default:
                 // Let's not disclose any internal information.
@@ -215,7 +218,8 @@ class Routing implements ControllerProviderInterface
 
         $user = $this->userSave($request, $app['user.factory']);
 
-        if (!empty($user->getId())) {
+        $id = $user->getId();
+        if (!empty($id)) {
             $app['session']->getFlashBag()
                 ->set('success', 'Thank you for your sign up. Now please create your pets profile.');
             return $app->redirect('/user/' . $user->getId());

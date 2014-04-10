@@ -554,7 +554,8 @@ class User implements CrudInterface
 
         // Load the user's record from the database.
         $this->retrieve();
-        if (empty($this->getId())) {
+        $id = $this->getId();
+        if (empty($id)) {
             $this->logout();
             return false;
         }
