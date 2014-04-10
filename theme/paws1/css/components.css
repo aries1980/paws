@@ -239,7 +239,7 @@ input[type="text"], input[type="tel"], input[type="email"], input[type="url"], i
     
     color: rgb(98, 107, 112);
 }
-input[type="submit"] {
+input[type="submit"], button[type="submit"] {
     display: block;
     width: 100%;
     
@@ -259,7 +259,7 @@ input[type="submit"] {
       -o-transition: all 0.2s ease;
       transition: all 0.2s ease;
 }
-input[type="submit"]:hover {
+input[type="submit"]:hover, button[type="submit"] {
     cursor: pointer;
     background-color: rgb(26, 188, 156);
 }
