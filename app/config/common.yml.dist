@@ -109,3 +109,6 @@ hash_strength: 8
 logger:
   monolog.name: paws
   monolog.logfile: paws.log
+
+user:
+  class: Paws\Entity\User
