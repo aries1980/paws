@@ -274,15 +274,21 @@ class User implements CrudInterface
     {
         $stmt = $this->app['db']->prepare("
             INSERT INTO user (username, password, email, enabled, created, modified)
-            VALUES (:username, :password, :enabled, :email, NOW(), NOW())
+            VALUES (:username, :password, :email, :enabled, NOW(), NOW())
         ");
+        try {
         $stmt->execute([
-            ':username' => $this->getUsername(),
+            ':username' => $this->getUserName(),
             ':password' => $this->getHashedPassword(),
             ':email' => $this->getEmail(),
             ':enabled' => $this->getEnabled()
         ]);
-        $this->id = $this->app['db']->lastInsertId();
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+        }
+
+        $id = $this->app['db']->lastInsertId();
+        $this->setId($id);
     }
 
     /**
