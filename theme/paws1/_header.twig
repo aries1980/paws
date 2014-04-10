@@ -79,7 +79,7 @@
         <nav class="grid-80 mobile-grid-100">
             <ul id="menu">
                 <li><a href="{{ paths.root }}">Home</a></li>
-                {% if app.session.get('user') is not null %}
+                {% if user.getId() is not null %}
                     <li><a href="{{ paths.root }}/logout">Logout</a></li>
                 {% else %}
                     <li><a href="{{ paths.root }}/login">Login</a></li>

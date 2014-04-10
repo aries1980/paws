@@ -4,20 +4,19 @@
     <div class="grid-container paragraphs-container">
         <div class="grid-30">
             <p class="paragraph-icon"><i class="icon-user"></i></p>
-            <h3 class="paragraph-title">Log in</h3>
-            <p class="paragraph-text">Please use your credentials to log in.</p>
+            <h3 class="paragraph-title">{{ title }}</h3>
+            <p class="paragraph-text">@TODO: a profile photo should be here.</p>
         </div>
         <div class="grid-65 push-5">
             {% include '_messages.twig' %}
 
             <div class="grid-100">
-                <form method="post">
-                    <input type="text" name="username" id="username" placeholder="Username" {% if username is defined %}value="{{username}}"{%endif%} />
-                    <input type="password" name="password" value="" id="password" placeholder="Password" />
-                    <div class="grid-30 grid-parent">
-                        <button type="submit" name="action" value="login" class="greensea">Log in</button>
-                    </div>
-                </form>
+                <p>Username: {{ username }}</p>
+                <p>Name:</p>
+                <p>Surname:</p>
+                <p>E-mail: <a href="mailto:{{ email }}">{{ email }}</a></p>
+                <p>Website:</p>
+                <p>Phone:</p>
             </div>
         </div>
     </div>

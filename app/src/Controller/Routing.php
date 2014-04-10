@@ -101,7 +101,7 @@ class Routing implements ControllerProviderInterface
                 }
 
                 $app['logger']->info('User {username} logged in.', ['username' => $app['user']->getUserName()]);
-                return $app->redirect('/user/' . $app['user']->getId());
+                return $app->redirect('user/' . $app['user']->getId());
 
             default:
                 // Let's not disclose any internal information.
@@ -135,6 +135,10 @@ class Routing implements ControllerProviderInterface
             $app['session']->getFlashBag()->set('error', 'You do not have the right privileges to view that page.');
 
             return $app->redirect('/');
+        }
+
+        if ($app['session']->has('user')) {
+            $app['render']->addGlobal('user', $app['session']->get('user'));
         }
     }
 
