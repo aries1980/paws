@@ -97,14 +97,15 @@ class Routing implements ControllerProviderInterface
                 $app['user']->authenticate();
 
                 if ($app['user']->getId()) {
-                    $app['session']->getFlashBag()->set('success', 'Whatever.');
+                    $app['session']->getFlashBag()->set('success', 'You successfully logged in.');
                 } else {
                     // Authentication failed. Redirect to the login page.
                     return $this->getLogin($app, $request);
                 }
 
                 $app['logger']->info('User {username} logged in.', ['username' => $app['user']->getUserName()]);
-                return $app->redirect('/user/' . $app['user']->getId());
+                $subRequest = Request::create('/user/' . $app['user']->getId(), 'GET');
+                return $app->handle($subRequest, \Symfony\Component\HttpKernel\HttpKernelInterface::SUB_REQUEST);
 
             default:
                 // Let's not disclose any internal information.
@@ -222,7 +223,8 @@ class Routing implements ControllerProviderInterface
         if (!empty($id)) {
             $app['session']->getFlashBag()
                 ->set('success', 'Thank you for your sign up. Now please create your pets profile.');
-            return $app->redirect('/user/' . $user->getId());
+            $subRequest = Request::create('/user/' . $id, 'GET');
+            return $app->handle($subRequest, \Symfony\Component\HttpKernel\HttpKernelInterface::SUB_REQUEST);
         }
 
         $app['session']->getFlashBag()->set('error', 'The user could not be saved. Please try again later.');
