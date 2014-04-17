@@ -49,7 +49,6 @@ class User implements CrudInterface
      */
     protected $email;
 
-
     /**
      * A password used to authenticate the.
      *
@@ -99,6 +98,33 @@ class User implements CrudInterface
         $this->setPassword($password);
         $this->setEnabled($enabled);
         $this->setRoles($roles);
+    }
+
+    /**
+     * Mutator for self::app.
+     *
+     * @param \Paws\Application $app
+     *   The Application (DI) container.
+     *
+     * @return self
+     *   Fluent interface.
+     */
+    public function setApp(Application $app)
+    {
+        $this->app = $app;
+
+        return $this;
+    }
+
+    /**
+     * Accessor for self::app.
+     *
+     * @return \Paws\Application
+     *   The application (DI) container.
+     */
+    public function getApp()
+    {
+        return $this->app;
     }
 
     /**
