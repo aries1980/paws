@@ -516,7 +516,11 @@ class User implements CrudInterface
         // will throw warnings. Suppress them here. #shakemyhead
         // @see: https://bugs.php.net/bug.php?id=63379
         @$this->app['session']->migrate(true);
-        $this->app['session']->set('user', $this);
+
+        $user = clone $this;
+        // Objects that contains closures can't be serialized.
+        unset($user->app);
+        $this->app['session']->set('user', $user);
     }
 
     /**
